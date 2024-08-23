@@ -40,11 +40,11 @@ else
     useradd roboshop 
 fi
 
-if [ -d -eq "/app"]
+if [ -d -eq "/app" ]
 then
     echo app folder exist.removing the folder 
     rm -rf /app
-    mkdir /app # need to check the app dir if exists need to remove and re create
+    mkdir -p /app # need to check the app dir if exists need to remove and re create
 else 
     mkdir -p /app
 fi
