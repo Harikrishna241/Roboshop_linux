@@ -37,6 +37,7 @@ validate $? "enabling rabbitmmq"
 systemctl start rabbitmq-server &>>$LOGFILE
 validate $? "starting rabbit mq"
 
+#here we need to do check the user
 rabbitmqctl add_user roboshop roboshop123 &>>$LOGFILE
 validate $? "Creating a user"
 
