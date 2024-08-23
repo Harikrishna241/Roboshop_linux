@@ -4,6 +4,7 @@ USERID=$(id -u )
 TIMESTAMP=$(date +%F-%H-%M-%S)
 Script_Name=$(echo $0 | cut -d "." -f1)
 LOGFILE=/tmp/$Script_Name-$TIMESTAMP.log
+DIRECTORY=/app
 
 if [ $USERID -eq 0 ]
 then
@@ -31,9 +32,17 @@ validate $? "Enabling node js 20"
 dnf install nodejs -y &>>$LOGFILE
 validate $? "Installing Nodejs"
 
-useradd roboshop # need to check the user exists or not 
+useradd roboshop # need to check the user exists or not
 
-mkdir /app # need to check the app dir if exists need to remove and re create
+if [ -d "$DIRECTORY" ]; 
+then
+    rm -rf $DIRECTORY
+    mkdir $DIRECTORY
+else
+    mkdir $DIRECTORY
+fi
+
+#mkdir -p /app # need to check the app dir if exists need to remove and re create
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
 
@@ -43,8 +52,8 @@ validate $? "changing the directory to app"
 unzip /tmp/catalogue.zip &>>$LOGFILE
 validate $? "Unzip the files"
 
-cd /app &>>$LOGFILE
-validate $? "Changing the directory to app"
+# cd /app &>>$LOGFILE
+# validate $? "Changing the directory to app"
 
 npm install &>>$LOGFILE
 validate $? "Installation of dependencies"
@@ -59,7 +68,9 @@ systemctl start catalogue &>>$LOGFILE
 validate $? "Start the catlogue"
 
 
-#vim /etc/yum.repos.d/mongo.repo here we need verify the mongo DB 
+cp -rf mongo.repo   /etc/yum.repos.d/mongo.repo
+validate $? "copy mongo.repo"
+
 
 dnf install -y mongodb-mongosh &>>$LOGFILE
 validate $? "install Mongodb"
