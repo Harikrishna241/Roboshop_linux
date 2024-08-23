@@ -5,7 +5,7 @@ TIMESTAMP=$(date +%F-%H-%M-%S)
 Script_Name=$(echo $0 | cut -d "." -f1)
 LOGFILE=/tmp/$Script_Name-$TIMESTAMP.log
 
-if [ $USERID -eq 0]
+if [ $USERID -eq 0 ]
 then
     echo " you are in su mode"
 else
