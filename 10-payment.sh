@@ -4,6 +4,7 @@ USERID=$(id -u )
 TIMESTAMP=$(date +%F-%H-%M-%S)
 Script_Name=$(echo $0 | cut -d "." -f1)
 LOGFILE=/tmp/$Script_Name-$TIMESTAMP.log
+DIRECTORY=/app
 
 if [ $USERID -eq 0 ]
 then
@@ -25,22 +26,37 @@ validate(){
 dnf install python3.11 gcc python3-devel -y &>>$LOGFILE
 validate $? "Installing python"
 
-useradd roboshop &>>$LOGFILE
-validate $? " adding roboshop"
+id roboshop &>>$LOGFILE
+if [ $? -eq 0 ]
+then 
+    echo "user exists"
+else 
+    useradd roboshop &>>$LOGFILE
+    validate $? " adding roboshop"
+fi
 
-mkdir /app &>>$LOGFILE
-validate $? "Creating folder"
+if [ -d "$DIRECTORY" ]; 
+then
+    echo "removing the directory"
+    rm -rf $DIRECTORY
+    mkdir -p  $DIRECTORY
+else
+    mkdir -p $DIRECTORY
+fi
 
-curl -L -o /tmp/payment.zip https://roboshop-builds.s3.amazonaws.com/payment.zip &>>$LOGFILE
+curl -o /tmp/payment.zip https://roboshop-builds.s3.amazonaws.com/payment.zip &>>$LOGFILE
 validate $? "download payment code"
 
 cd /app  &>>$LOGFILE
 validate $? "moving to app folder"
 
+unzip /tmp/payment.zip &>>$LOGFILE
+validate $? "Unzip the payment service"
+
 pip3.11 install -r requirements.txt &>>$LOGFILE
 validate $? "Installing modules"
 
-cp -rf payment.service /etc/systemd/system/payment.service &>>$LOGFILE
+cp -rf /home/ec2-user/Roboshop_linux/payment.service /etc/systemd/system/payment.service &>>$LOGFILE
 validate $? " cp payment service to  systemd"
 
 systemctl daemon-reload &>>$LOGFILE
