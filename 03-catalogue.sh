@@ -43,18 +43,19 @@ fi
 
 if [ -d "$DIRECTORY" ]; 
 then
+    echo "removing the directory"
     rm -rf $DIRECTORY
-    mkdir $DIRECTORY
+    mkdir -p  $DIRECTORY
 else
-    mkdir $DIRECTORY
+    mkdir -p $DIRECTORY
 fi
 
-rm -rf /app &>>$LOGFILE
-validate $? "remove the directory"
+# rm -rf /app &>>$LOGFILE
+# validate $? "remove the directory"
 
-# creating the app dir if exists need to remove and re create
-mkdir -p /app  &>>$LOGFILE
-validate $? "Creating the app directory "
+# # creating the app dir if exists need to remove and re create
+# mkdir -p /app  &>>$LOGFILE
+# validate $? "Creating the app directory "
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
 validate $? "downloading the files"

@@ -30,7 +30,16 @@ validate $? "Enabling node js 20"
 dnf install nodejs -y &>>$LOGFILE
 validate $? "Installing Nodejs"
 
-useradd roboshop # need to check the user exists or not 
+# need to check the user exists or not 
+id roboshop &>>$LOGFILE
+if [ id -eq 0 ]
+then 
+    echo "user exists"
+else
+    useradd roboshop 
+fi
+
+
 
 mkdir /app # need to check the app dir if exists need to remove and re create
 
