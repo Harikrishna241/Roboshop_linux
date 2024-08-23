@@ -32,7 +32,14 @@ validate $? "Enabling node js 20"
 dnf install nodejs -y &>>$LOGFILE
 validate $? "Installing Nodejs"
 
-useradd roboshop # need to check the user exists or not
+# need to check the user exists or not
+id roboshop &>>$LOGFILE
+if [ $? -eq 0 ]
+then 
+    echo "User exists"
+else
+    useradd roboshop
+fi 
 
 if [ -d "$DIRECTORY" ]; 
 then
@@ -49,16 +56,14 @@ validate $? "remove the directory"
 mkdir -p /app  &>>$LOGFILE
 validate $? "Creating the app directory "
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
+validate $? "downloading the files"
 
-cd /app 
+cd /app &>>$LOGFILE
 validate $? "changing the directory to app"
 
 unzip /tmp/catalogue.zip &>>$LOGFILE
 validate $? "Unzip the files"
-
-# cd /app &>>$LOGFILE
-# validate $? "Changing the directory to app"
 
 npm install &>>$LOGFILE
 validate $? "Installation of dependencies"
