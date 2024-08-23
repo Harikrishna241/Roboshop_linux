@@ -24,14 +24,14 @@ cp -rf mongo.repo /etc/yum.repos.d/mongo.repo
 validate $? "mongodb copy"
 
 
-dnf install mongodb-org -y &>>LOGFILE
+dnf install mongodb-org -y &>>$LOGFILE
 validate $? "mongodb installation"
 
 
-systemctl enable mongod &>>LOGFILE
+systemctl enable mongod &>>$LOGFILE
 validate $? "enabling mongodb"
 
-systemctl start mongod &>>LOGFILE
+systemctl start mongod &>>$LOGFILE
 validate $? "mongodb start"
 
 
@@ -39,6 +39,6 @@ validate $? "mongodb start"
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>> $LOGFILE
 validate $? "Remote server access"
 
-systemctl restart mongod &>>LOGFILE
+systemctl restart mongod &>>$LOGFILE
 validate $? "mongodb restart"
 

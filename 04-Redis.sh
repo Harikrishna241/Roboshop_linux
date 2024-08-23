@@ -20,14 +20,14 @@ validate(){
     fi
 }
 
-dnf install redis  -y &>>LOGFILE
+dnf install redis  -y &>>$LOGFILE
 validate $? "redis installation"
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf &>>$LOGFILE
 validate $? "redis installation"
 
-systemctl enable redis &>>LOGFILE
+systemctl enable redis &>>$LOGFILE
 validate $? "redis server enable"
 
-systemctl start redis &>>LOGFILE
+systemctl start redis &>>$LOGFILE
 validate $? "redis start"

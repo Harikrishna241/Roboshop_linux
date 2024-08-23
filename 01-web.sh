@@ -48,7 +48,3 @@ validate $? "copy roboshop file"
 
 systemctl restart nginx  &>>$LOGFILE
 validate $? "Restart the nginx"
-
-
-
-systemctl restart nginx

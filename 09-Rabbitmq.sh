@@ -23,7 +23,7 @@ validate(){
 curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>>$LOGFILE
 validate $? "Package cloud download"
 
-curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>>$LOGFILE
 validate $? "Package cloud download"
 
 dnf install rabbitmq-server -y &>>$LOGFILE
