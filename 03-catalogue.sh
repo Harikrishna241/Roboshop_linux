@@ -64,5 +64,5 @@ validate $? "Start the catlogue"
 dnf install -y mongodb-mongosh &>>$LOGFILE
 validate $? "install Mongodb"
 
-mongosh --host MONGODB-SERVER-IPADDRESS </app/schema/catalogue.js &>>$LOGFILE
-validate $? "Loading the schema"
+# mongosh --host MONGODB-SERVER-IPADDRESS </app/schema/catalogue.js &>>$LOGFILE
+# validate $? "Loading the schema"
