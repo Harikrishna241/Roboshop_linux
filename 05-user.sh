@@ -74,11 +74,11 @@ systemctl start user &>>$LOGFILE
 validate $? "Start the user"
 
 
-cp -rf mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
+cp -rf /home/ec2-user/Roboshop_linux/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 validate $? "copying mongo repo"
 
 dnf install mongodb-mongosh -y &>>$LOGFILE
 validate $? "installing mongo-db"
 
-mongosh --host MONGODB-SERVER-IPADDRESS </app/schema/user.js &>>$LOGFILE
-validate $? " loading mongo DB sechema"
+# mongosh --host MONGODB-SERVER-IPADDRESS </app/schema/user.js &>>$LOGFILE
+# validate $? " loading mongo DB sechema"
