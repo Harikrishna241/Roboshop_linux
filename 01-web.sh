@@ -45,7 +45,7 @@ validate $? "change the folder"
 unzip /tmp/web.zip &>>$LOGFILE
 validate $? "unzip the code"
 
-cp -rf roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE
+cp -rf /home/ec2-user/Roboshop_linux/roboshop.conf  /etc/nginx/default.d/roboshop.conf &>>$LOGFILE
 validate $? "copy roboshop file"
 
 systemctl restart nginx  &>>$LOGFILE
