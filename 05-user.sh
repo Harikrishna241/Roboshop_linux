@@ -18,6 +18,7 @@ validate(){
         echo "$2 is successful "
     else
         echo "$2 is failure"
+    fi
 }
 
 
