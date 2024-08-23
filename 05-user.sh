@@ -4,6 +4,7 @@ USERID=$(id -u )
 TIMESTAMP=$(date +%F-%H-%M-%S)
 Script_Name=$(echo $0 | cut -d "." -f1)
 LOGFILE=/tmp/$Script_Name-$TIMESTAMP.log
+DIRECTORY=/app
 
 if [ $USERID -eq 0 ]
 then
@@ -31,20 +32,31 @@ validate $? "Enabling node js 20"
 dnf install nodejs -y &>>$LOGFILE
 validate $? "Installing Nodejs"
 
-useradd roboshop # need to check the user exists or not 
+id roboshop &>>$LOGFILE
+if [ $? -eq 0 ]
+then 
+    echo "user exists"
+else
+    useradd roboshop # need to check the user exists or not
+fi
 
-mkdir /app # need to check the app dir if exists need to remove and re create
+if [ -d "$DIRECTORY" ]; 
+then
+    echo "removing the directory"
+    rm -rf $DIRECTORY
+    mkdir -p  $DIRECTORY
+else
+    mkdir -p $DIRECTORY
+fi
 
-curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip
+curl -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>>$LOGFILE
+validate $? "Downloading the code"
 
 cd /app 
 validate $? "changing the directory to app"
 
 unzip /tmp/user.zip &>>$LOGFILE
 validate $? "Unzip the files"
-
-cd /app &>>$LOGFILE
-validate $? "Changing the directory to app"
 
 npm install &>>$LOGFILE
 validate $? "Installation of dependencies"
