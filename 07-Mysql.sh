@@ -32,4 +32,4 @@ validate $? "mysql start"
 mysql_secure_installation --set-root-pass RoboShop@1 &>>LOGFILE
 validate $? "Setting root password"
 
-mysql -uroot -pRoboShop@1
+#mysql -uroot -pRoboShop@1

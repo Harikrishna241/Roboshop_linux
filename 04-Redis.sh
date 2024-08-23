@@ -23,9 +23,6 @@ validate(){
 dnf install redis  -y &>>LOGFILE
 validate $? "redis installation"
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf 
-validate $? "redis installation"
-
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf
 validate $? "redis installation"
 
