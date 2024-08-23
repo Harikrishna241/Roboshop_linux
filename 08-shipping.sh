@@ -26,8 +26,14 @@ validate(){
 dnf install maven -y &>>$LOGFILE
 validate $? "installing maven"
 
-useradd roboshop &>>$LOGFILE
-validate $? "Creating roboshop user"
+id roboshop &>>$LOGFILE
+if [ $? -eq 0 ]
+then 
+    echo "user exists"
+else
+    useradd roboshop &>>$LOGFILE
+    validate $? "Creating roboshop user"
+fi
 
 if [ -d "$DIRECTORY" ]; 
 then
@@ -48,7 +54,7 @@ unzip /tmp/shipping.zip &>>$LOGFILE
 validate $? "unzip the shiiping code"
 
 mvn clean package &>>$LOGFILE
-Validate $? "Clean package"
+validate $? "Clean package"
 
 mv target/shipping-1.0.jar shipping.jar &>>$LOGFILE
 validate $? "Changing shipping jar file name"
