@@ -39,13 +39,20 @@ else
     useradd roboshop 
 fi
 
+if [ -d -eq "/app"]
+then
+    echo app folder exist.removing the folder 
+    rm -rf /app
+    mkdir /app # need to check the app dir if exists need to remove and re create
+else 
+    mkdir -p /app
+fi
 
 
-mkdir /app # need to check the app dir if exists need to remove and re create
+curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$LOGFILE
+validate $? "download  the files"
 
-curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip
-
-cd /app 
+cd /app &>>$LOGFILE
 validate $? "changing the directory to app"
 
 unzip /tmp/cart.zip &>>$LOGFILE
@@ -57,7 +64,7 @@ validate $? "Changing the directory to app"
 npm install &>>$LOGFILE
 validate $? "Installation of dependencies"
 
-cp -rf cart.service vim /etc/systemd/system/cart.service &>>$LOGFILE
+cp -rf /home/ec2-user/Roboshop_linux/cart.service vim /etc/systemd/system/cart.service &>>$LOGFILE
 validate $? "copy the cart service"
 
 systemctl daemon-reload &>>$LOGFILE
