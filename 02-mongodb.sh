@@ -2,7 +2,7 @@
 
 USERID=$(id -u )
 TIMESTAMP=$(date +%F-%H-%M-%S)
-Script_Name=$(echo "$0 | cut "." -f1")
+Script_Name=$(echo $0 | cut "." -f1)
 LOGFILE=/tmp/$Script_Name-$TIMESTAMP.log
 if [ $USERID -eq 0 ]
 then 
