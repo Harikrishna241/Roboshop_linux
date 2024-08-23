@@ -42,7 +42,12 @@ else
     mkdir $DIRECTORY
 fi
 
-#mkdir -p /app # need to check the app dir if exists need to remove and re create
+rm -rf /app &>>$LOGFILE
+validate $? "remove the directory"
+
+# creating the app dir if exists need to remove and re create
+mkdir -p /app 
+validate $? "Creating the app directory "
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
 
@@ -52,8 +57,8 @@ validate $? "changing the directory to app"
 unzip /tmp/catalogue.zip &>>$LOGFILE
 validate $? "Unzip the files"
 
-# cd /app &>>$LOGFILE
-# validate $? "Changing the directory to app"
+cd /app &>>$LOGFILE
+validate $? "Changing the directory to app"
 
 npm install &>>$LOGFILE
 validate $? "Installation of dependencies"
