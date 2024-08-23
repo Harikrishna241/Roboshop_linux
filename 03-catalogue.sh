@@ -58,7 +58,7 @@ validate $? "Unzip the files"
 npm install &>>$LOGFILE
 validate $? "Installation of dependencies"
 
-cp -rf catalogue.service /etc/systemd/system/catalogue.service &>>$LOGFILE
+cp -rf /home/ec2-user/Roboshop_linux/catalogue.service /etc/systemd/system/catalogue.service &>>$LOGFILE
 validate $? "copy the catlogue service"
 
 systemctl daemon-reload &>>$LOGFILE
@@ -68,7 +68,7 @@ systemctl start catalogue &>>$LOGFILE
 validate $? "Start the catlogue"
 
 
-cp -rf mongo.repo   /etc/yum.repos.d/mongo.repo
+cp -rf /home/ec2-user/Roboshop_linux/mongo.repo   /etc/yum.repos.d/mongo.repo
 validate $? "copy mongo.repo"
 
 
