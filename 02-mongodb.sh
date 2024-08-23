@@ -17,6 +17,7 @@ validate(){
         echo "$2  successfully"
     else
         echo " $2  failed"
+    fi
 } 
 
 dnf install mongodb-org -y &>>LOGFILE
