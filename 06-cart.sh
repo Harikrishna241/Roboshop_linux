@@ -62,8 +62,8 @@ validate $? "changing the directory to app"
 # cd /app &>>$LOGFILE
 # validate $? "Changing the directory to app"
 
-# npm install &>>$LOGFILE
-# validate $? "Installation of dependencies"
+npm install &>>$LOGFILE
+validate $? "Installation of dependencies"
 
 cp -rf /home/ec2-user/Roboshop_linux/cart.service vim /etc/systemd/system/cart.service &>>$LOGFILE
 validate $? "copy the cart service"
