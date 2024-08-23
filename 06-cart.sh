@@ -50,7 +50,7 @@ else
 fi
 
 
-curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$LOGFILE
+curl  -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$LOGFILE
 validate $? "download  the files"
 
 cd /app &>>$LOGFILE
