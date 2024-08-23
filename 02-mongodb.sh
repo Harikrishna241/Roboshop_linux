@@ -33,7 +33,7 @@ validate $? "mongodb start"
 
 #vim /etc/mongod.conf
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>> $LOGFILE
-VALIDATE $? "Remote server access"
+validate $? "Remote server access"
 
 systemctl restart mongod &>>LOGFILE
 validate $? "mongodb restart"
