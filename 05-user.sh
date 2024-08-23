@@ -61,7 +61,7 @@ validate $? "Unzip the files"
 npm install &>>$LOGFILE
 validate $? "Installation of dependencies"
 
-cp -rf user.service /etc/systemd/system/user.service &>>$LOGFILE
+cp -rf /home/ec2-user/Roboshop_linux/user.service /etc/systemd/system/user.service &>>$LOGFILE
 validate $? "copy the user service"
 
 systemctl daemon-reload &>>$LOGFILE
