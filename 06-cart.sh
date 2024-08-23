@@ -1,7 +1,7 @@
 #! /bin/bash
 
-USERID=$(id -u)
-TIMESTAMP=$(data +%F-%H-%M-%S)
+USERID=$(id -u )
+TIMESTAMP=$(date +%F-%H-%M-%S)
 Script_Name=$(echo $0 | cut -d "." -f1)
 LOGFILE=/tmp/$Script_Name-$TIMESTAMP.log
 
