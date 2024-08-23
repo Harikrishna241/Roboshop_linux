@@ -20,6 +20,10 @@ validate(){
     fi
 } 
 
+cp -rf mongo.repo /etc/yum.repos.d/mongo.repo
+validate $? "mongodb copy"
+
+
 dnf install mongodb-org -y &>>LOGFILE
 validate $? "mongodb installation"
 
