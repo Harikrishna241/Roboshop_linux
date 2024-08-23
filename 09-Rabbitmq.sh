@@ -38,8 +38,14 @@ systemctl start rabbitmq-server &>>$LOGFILE
 validate $? "starting rabbit mq"
 
 #here we need to do check the user
-rabbitmqctl add_user roboshop roboshop123 &>>$LOGFILE
-validate $? "Creating a user"
+sudo rabbitmqctl list_users | grep roboshop &>>$LOGFILE
+if [ $? -ne 0 ]
+then 
+    rabbitmqctl add_user roboshop roboshop123 &>>$LOGFILE
+    validate $? "Creating a user"
+    rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOGFILE
+    validate $? "setting permission"
+else
+    echo "user already exists"
+fi
 
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOGFILE
-validate $? "setting permission"
