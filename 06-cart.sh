@@ -56,11 +56,8 @@ validate $? "download  the files"
 cd /app &>>$LOGFILE
 validate $? "changing the directory to app"
 
-# unzip /tmp/cart.zip &>>$LOGFILE
-# validate $? "Unzip the files"
-
-# cd /app &>>$LOGFILE
-# validate $? "Changing the directory to app"
+unzip /tmp/cart.zip &>>$LOGFILE
+validate $? "copy the cart service"
 
 npm install &>>$LOGFILE
 validate $? "Installation of dependencies"
