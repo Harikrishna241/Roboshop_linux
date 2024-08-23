@@ -1,3 +1,5 @@
+#! /bin/bash
+
 USERID=$(id -u)
 TIMESTAMP=$(date +%F-%H-%M-%S)
 Script_Name=$(echo $0 | cut -d "." =f1)
